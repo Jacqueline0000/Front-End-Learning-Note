@@ -1,5 +1,5 @@
 
-`XMLHttpRequest对象`
+### XMLHttpRequest对象
 
 1.`readyState`有五种状态：
 - 0 (未初始化)： (XMLHttpRequest)对象已经创建，但还没有调用open()方法；
@@ -25,13 +25,13 @@
     - 500，服务器产生内部错误
 
 
-`攻击`
+### 攻击
 - **DNS欺骗攻击**
 - **DDoS攻击**
 - **XSS攻击**
 - **SYN Flooding攻击** 攻击者使用无效IP地址，利用TCP连接的三次握手过程，连续发送会话请求，使受害主机处于开放会话的请求之中，直至连接超时，最终因耗尽资源而停止响应。
 
-`cookie、sessionStorage和localStorage`
+### cookie、sessionStorage和localStorage
 - Web Storage实际上由两部分组成：sessionStorage与localStorage。  
 - sessionStorage用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问并且当会话结束后数据也随之销毁。因此sessionStorage不是一种持久化的本地存储，仅仅是会话级别的存储。  
 - localStorage用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。
