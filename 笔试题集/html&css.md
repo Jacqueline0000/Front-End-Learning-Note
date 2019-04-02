@@ -1,3 +1,6 @@
+
+[TOC]
+
 ### docutype
 - hack技术主要是为了  某些浏览器特定设置的，写在css中，里面可以嵌套style和html代码，不可以写在style中
 - DOCTYPE文档类型的声明，就是告诉浏览器使用哪种规范来解释这个文档中的规范。
@@ -219,4 +222,5 @@ enctype 属性规定在发送到服务器之前应该如何对表单数据进行
 ### 清除浮动方法
 1，给父级元素添加class=“clearflex”
 2，在css中给父级添加属性：overflow：hidden
-3，伪元素清除法:建立空的div，命名为clear，在css中添加clear：both；
+3，伪元素清除法:建立空的div，命名为clear，在css中添加clear：both
+
