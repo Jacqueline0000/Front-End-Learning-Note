@@ -1,5 +1,5 @@
 ### HTTP介绍
-HTTP协议（HyperText Transfer Protocol，超文本传输协议）：是用于从www服务器传输超文本到本地浏览器到传送协议
+HTTP协议（HyperText Transfer Protocol，超文本传输协议）：是用于从www服务器传输超文本到本地浏览器的传送协议
 
 ### 协议栈
 ##### HTTP在TCP/IP协议栈中的位置
