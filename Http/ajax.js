@@ -2,7 +2,7 @@
     class ajaxClass {
         // send ajax
         init () {
-            // THIS:EXAMPLE
+            // THIS:_THIS
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = () => {
                 if(!/^[23]\d{2}$/.test(xhr.status)) return;
@@ -45,7 +45,7 @@
 
         // CONVERT THE PASSED OBJECT DATA TO STRING DATA
         formatData () {
-            // THIS:EXAMPLE
+            // THIS:_THIS
             if (Object.prototype.toString.call(this.data) === '[object Object]') {
                 let obj = this.data,
                     str = ``;
@@ -59,12 +59,12 @@
         }
 
         cacheFn () {
-            // THIS:EXAMPLE
+            // THIS:_THIS
             !this.cache ? this.url += `${this.querySymbol()}_=${Math.random()}` : null;
         }
 
         querySymbol () {
-            // THIS:EXAMPLE
+            // THIS:_THIS
             return this.url.indexOf('?') > -1 ? '&' : '?';
         }
     }
