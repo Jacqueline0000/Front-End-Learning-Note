@@ -175,3 +175,150 @@ xhr.onreadystatechange = () => {
 ##### - AJAX中其它的属性和方法
 > 面试题：AJAX中有几个方法？
 
+```javascript
+let xhr = new XMLHttpRequest();
+console.log(xhr);
+```
+**属性**
+- `readyState`: 存储的是当前AJAX的状态码
+- `response`/`responseText`/`responseXML`: 都是用来接收服务器返回的响应主体中的内容，只是根据服务器返回内容的格式不一样，我们使用不同的属性接收即可
+    + `responseText`是最常用的，接收到的结果是字符串格式
+    + `responseXML`偶尔会用到，如果服务器端返回的是XML文档数据，我们需要使用这个属性接收
+- `status`: 记录了服务器端返回的HTTP状态码
+- `statusText`: 对返回状态码的描述
+- `timeOut`: 设置当前AJAX请求的超时时间，假设我们设置时间为3000(MS)，从AJAX请求发送开始，3秒后响应主体内容还没返回，浏览器会把当前AJAX请求任务强制断开
+
+**方法**
+- `abort()`: 强制中断AJAX请求
+- `getAllResponseHeaders()`: 获取全部的响应头信息（获取的结果是一堆字符串文本）
+- `getResponseHeaders(key)`: 获取指定属性的响应头信息，例如：`xhr.getResponseHeader('date')`获取响应头中存储的服务器的时间
+- `open()`: 打开一个URL地址
+- `overrideMimeType()`: 重写数据的MIME类型
+- `send()`: 发送AJAX请求（括号中书写的内容是客户端基于请求主体把信息传递给服务器）
+- `sendRequestHeader(key,value)`: 设置请求头信息（可以是设置的自定义请求头信息）
+
+**事件**
+- `onabort()`: 当AJAX被中断请求时触发
+- `onreadystatechange()`: AJAX状态发生改变时触发
+- `ontimeout()`: 当AJAX请求超时时触发
+- ...
+
+**应用**
+```javascript
+let xhr = new XMLHttpRequest();
+xhr.open('get', 'temp.json?_=' + Math.random(), true);
+
+// 设置请求头信息必须在open之后和send之前，请求头的内容不能出现中文汉字
+xhr.setRequestHeader('cookie', 'xxx'); 
+
+// 设置超时
+xhr.timeout = 10;
+xhr.ontimeout = () => {
+    console.log('当前请求已超时');
+    xhr.abort();
+}
+
+xhr.onreadystatechange = () => {
+    let {readyState : state, status} = xhr;
+    
+    // 说明请求数据成功了
+    if(!/^(2|3)\d{2}$/.test(status)) return;
+    
+    // 在状态为2时就可以获取响应头信息
+    if(state === 2) {
+        let headerAll = xhr.getAllResponseHeaders(),
+            serverDate = xhr.getResponseHeader('date'); // 获取的服务器时间是格林尼治时间（和北京时间差8小时）
+            serverDate = new Date(serverDate); // 转化为北京时间
+        return;
+    }
+    
+    // 在状态为4的时候响应主体内容就已经回来了
+    if(state === 4) {
+        let valueText = xhr.responseText, // 获取到的结果一般都是JSON字符串（可以使用JSON.parse()将其转化为JSON对象）
+        valueXML = xhr.responseXML; // 获取到到结果是XML格式到数据
+    }
+};
+
+xhr.send('name=xhh&age=2');
+```
+
+## JS中常用到编码解码方法
+##### - 正常到编码解码（非加密）
+1. `escape/unescape`: 主要就是把中文汉字进行编码和解码（一般只有JS语言支持，与经常应用于前端页面通信时到中文汉字解码）
+
+2. `encodeURI/decodeURI`: 基本上所有的编程语言都支持
+
+2. `encodeURIComponent/decodeURIComponent`: 和第二种方式类似，区别在于`encodeURI()`不会对本身属于URI的特殊字符进行编码，例如冒号、正斜杠、问号和井字号；而`encodeURIComponent()`则会对它发现的任何非标准字符进行编码。
+
+##### - 加密方式到编码解码
+1. 可逆转加密（一般都是团队自己玩的规则）
+
+2. 不可逆转加密（一般都是基于MD5加密完成的，可能会把MD5加密后的结果二次加密）
+
+##  AJAX中的同步和异步
+AJAX这个任务：发送请求接收到响应主体内容（完成一个完整的HTTP事务）
+- xhr.send() 任务开始
+- xhr.readyState===4 任务结束
+
+**同步**
+```javascript
+let xhr = new XMLHttpRequest();
+xhr.open('get', 'temp.json', false);
+xhr.onreadystatechange = () => {
+    console.log(xhr.readyState);
+}
+xhr.send();
+// 只输出一次 结果是4
+```
+
+![](https://ws2.sinaimg.cn/large/006tNc79ly1g23posjgvhj30p60i8q54.jpg)
+
+**异步**
+```javascript
+let xhr = new XMLHttpRequest();
+xhr.open('get', 'temp.json');
+xhr.onreadystatechange = () => {
+    console.log(xhr.readyState);
+}
+xhr.send();
+// 输出3次 结果分别是2 3 4
+```
+
+![](https://ws3.sinaimg.cn/large/006tNc79ly1g23q2w6gjij30o60h076a.jpg)
+
+## JQ中的AJAX
+**JQ中AJAX的使用**
+```javascript
+$.ajax({
+    url: 'xxx.txt', // 请求API地址
+    method: 'get', // 设置请求方式GET/POS... 在老版本JQ中使用的是type，使用type和method实现的是相同的效果
+    dataType: 'json', // dataType只是我们预设获取结果的类型，不会影响服务器的返回（服务器端一般返回的都是JSON格式字符串），如果我们预设的是json，那么类库中将把服务器返回的字符串转换为json对象
+    cache: false, // 设置是否清除缓存，只对GET系列请求有作用，默认值是true不清缓存，手动设置为false，JQ类库会在请求URL的末尾追加一个随机数来清除缓存
+    data: null, // 我们通过data可以把一些信息传递给服务器；GET系列请求会把DATA中的内容通过问号传参的方式传递给服务器，post 系列请求会把内容放在请求主体中传递给服务器；DATA的值可以设置为两种格式：字符串、对象，如果是字符串，设置的值是什么传递给服务器的就是什么，如果设置的是对象，JQ会把对象变为 xxx=xxx&xxx=xxx 这样的字符串传递给服务器
+    async: true, // 设置是否异步，默认true异步
+    success: function(result) {
+       // 当AJAX请求成功（readyState === 4 && status是以2或3开头时）
+    },
+    error: function(msg) {
+       // 请求错误触发回调函数
+    },
+    complete: function() {
+       // 请求完成触发
+    }
+     
+})
+```
+
+## 封装属于自己的AJAX类库
+**支持的参数**
+- url
+- method/type
+- data
+- dataType
+- async
+- cache
+- success
+- ...
+
+
+
