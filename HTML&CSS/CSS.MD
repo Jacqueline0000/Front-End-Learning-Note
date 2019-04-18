@@ -245,7 +245,7 @@ vertical-align: bottom; /* 基线对齐 使行内元素对齐*/
     </h1>
     </body>
     ```
-    
+    =
 **雪碧图的使用**
 ```html
 <head>
@@ -347,3 +347,94 @@ vertical-align: bottom; /* 基线对齐 使行内元素对齐*/
 <h2>我是内容我是内容我是内容我是内容我是内容我是</h2>
 </body>
 ```
+
+## 浮动
+##### float元素的特点
+- 浮动元素在一行显示
+- 浮动元素会脱离文档流，导致下面没有浮动的元素识别不了它的高度，就会往上跑，占领浮动元素的位置
+- 浮动元素自动具有块级元素的属性
+- 父元素浮动 子元素不会继承父元素的浮动
+- 浮动属性不能继承
+- 所有元素都可以用浮动属性
+
+##### 文档流 & 脱离文档流
+- 文档流：元素排版布局的过程中，元素会自动从左往右，从上往下的流式排列
+- 脱离文档流：文档流内的正常元素识别不到这个元素了（脱离文档流的元素相当于平行漂浮在文档流之上）
+
+##### 浮动产生的影响
+- 父元素高度为0
+
+**清除浮动的方法**
+- 给父元素添加一个固定高度（不推荐）
+- 给父元素设置`overflow: hidden`/`overflow: auto`
+- 在父元素结束标签之前加一个具有`块元素特点`的标签，给元素加一个`clear: both` `<divs style="clear: both"></div>`
+- clearfix 伪元素清除浮动：
+
+    ```html
+    <head>
+        <style>
+            .clearfix:after{
+                /* 利用伪元素清除浮动必备条件 */
+                display: block; /* 确保元素是一个块级元素 */
+                clear: both; /* 不允许左右两边有浮动对象 */
+                content: ""; /* 伪元素:before和:after自带属性 如果不写伪元素不起作用 */
+                
+                 /* 写全的样式属性 下面的四个属性不是必备条件*/
+                 height: 0; /* 防止低版本浏览器中height:1px的情况 */
+                 font-size: 0;
+                 overflow: hidden;
+                 visibility: hidden;
+            }
+            .clearfix{
+            *zoom: 1; /* css hack 兼容IE7 */
+            }
+            .left{
+                float: left;
+            }
+            .right{
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="header clearfix">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+    </body>
+    ```
+    
+**如何让元素消失**
+- `display: none`
+- `opacity: 0`
+- `visibility: hidden`
+- `height: 0;overflow:hidden`
+- `line-height: 0;overflow:hidden`(没有设置高度的情况下)
+- ...
+
+**行内元素和块级元素的特点**
+
+
+## 定位
+##### 绝对定位 `position: absolute`
+特点：
+- 可以设置top、bottom、left、right四个方位值
+- 绝对定位元素会脱离文档流
+- 参照物：最近的一个父级定位元素（绝对定位 相对定位 固定定位） 优先选择相对定位`position: relative`
+- 可以设置`z-index`
+
+##### 相对定位 `position: relative`
+特点：
+- 不会脱离文档流
+- 可以设置top、bottom、left、right四个方位值
+- 参照物：为自己本身
+- 可以设置`z-index`
+
+`z-index`要和定位元素一起才起作用
+
+##### 固定定位 `position: fixed`
+特点：
+- 会脱离文档流
+- 可以设置top、bottom、left、right四个方位值
+- 参照物：整个浏览器窗口
+- 可以设置`z-index`
