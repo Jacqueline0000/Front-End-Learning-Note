@@ -438,3 +438,5 @@ vertical-align: bottom; /* 基线对齐 使行内元素对齐*/
 - 可以设置top、bottom、left、right四个方位值
 - 参照物：整个浏览器窗口
 - 可以设置`z-index`
+
+
