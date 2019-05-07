@@ -1,5 +1,5 @@
 //=>公共方法库:项目中常用的一些方法,我们都封装到这里
-let utils = ~function () {
+let utils = (function () {
     //=>获取元素的样式
     let getCss = function (curEle, attr) {
         if (typeof window.getComputedStyle === 'undefined') {
@@ -82,4 +82,4 @@ let utils = ~function () {
         offset,
         winHandle
     }
-}();
+})();
