@@ -140,10 +140,10 @@ xhr.onreadystatechange = () => {
 
 ```
 ##### - ajax状态码`xhr.readyState`：描述当前ajax操作的状态
-- 0 UNSET 未发送：只要创建一个ajax对象，默认值就是0
+- 0 UNSENT 未发送：只要创建一个ajax对象，默认值就是0
 - 1 OPENED 我们已经执行了`xhr.open`这个操作
 - 2 HEADERS_RECEIVED 当前ajax的请求已经发送，并且已经接收到服务器端返回的响应头信息了
-- 3 LOADINGS 响应主体内容正在返回的路上
+- 3 LOADING 响应主体内容正在返回的路上
 - 4 DONE 响应主体内容已经返回到客户端
 
 ##### - HTTP网络状态码`xhr.status`：记录了当前服务器返回信息的状态
@@ -165,12 +165,13 @@ xhr.onreadystatechange = () => {
 以4开头的一般都是失败，而且客户端的问题偏大
 - 400 请求参数错误
 - 401 无权限访问
+- 403 请求不允许
 - 404 访问地址不存在
 
 
 以5开头的一般都是失败，而且服务器的问题偏大
 - 500 Internal server error 未知的服务器错误
-- 503 server unavailable 服务器超负载
+- 503 server unavailable 临时的服务器维护或者过载
 
 ##### - AJAX中其它的属性和方法
 > 面试题：AJAX中有几个方法？

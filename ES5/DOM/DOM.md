@@ -6,9 +6,9 @@
 - document.getElementById 一个元素对象
 - [context].getElementByTagName 元素集合
     - 可以自己指定上下文
-    
-- [context].getElementByClassName 元素集合
-- document.getElementByName 节点集合
+- [context].getElementByClassName 元素集合(IE6~8不兼容)
+- document.getElementByName 节点集合(IE浏览器中只对表单元素的name起作用)
+- document.documentElement
 - document.body 获取整个body对象
 - document.head 获取整个head对象
 - [context].querySelector 一个元素对象
@@ -115,8 +115,8 @@
 - lastChild 当前元素所有子节点中的最后一个
 
 `firstElementChild lastElementChild`
-- firstChild 当前元素所有元素子节点中的第一个
-- lastChild 当前元素所有元素子节点中的最后一个
+- firstElementChild 当前元素所有元素子节点中的第一个
+- lastElementChild 当前元素所有元素子节点中的最后一个
 - ie6-8下不兼容
 
 ### DOM的增删改
@@ -125,10 +125,6 @@
 
 `appendChild`
 - 把当前创建的新元素添加到容器的末尾位置
-
-`insertBefore`
-- 容器.insertBefore(新元素, 老元素)
-- 在当前容器中，把新创建的元素增加到老元素之前
 
 `insertBefore`
 - 容器.insertBefore(新元素, 老元素)
@@ -171,12 +167,6 @@
  `replaceChild`
  - 容器.replaceChild(新元素, 老元素)
  - 在当前容器中拿新元素替换老元素
- 
- `cloneNode`
- - 元素.cloneNode(false/true)
- - 把原有元素克隆一份一模一样的
-    - false 只克隆当前元素本身
-    - true 把当前元素本身以及元素的所有后代都进行克隆
  
  `cloneNode`
  - 元素.cloneNode(false/true)
