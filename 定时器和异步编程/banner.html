@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>banner</title>
+    <link rel="stylesheet" href="css/banner.css">
+</head>
+<body>
+<section class="container" id="container">
+    <div class="wrapper">
+        <!--<div class="slide"><img src="img/banner1.jpg" alt="banner1"></div>
+        <div class="slide"><img src="img/banner2.jpg" alt="banner2"></div>
+        <div class="slide"><img src="img/banner3.jpg" alt="banner3"></div>
+        <div class="slide"><img src="img/banner4.jpg" alt="banner4"></div>-->
+    </div>
+    <ul class="focus">
+        <!--<li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>-->
+    </ul>
+    <a href="javascript:;" class="arrow arrow-left"></a>
+    <a href="javascript:;" class="arrow arrow-right"></a>
+</section>
+<section class="container" id="container2">
+    <div class="wrapper">
+    </div>
+    <ul class="focus">
+    </ul>
+    <a href="javascript:;" class="arrow arrow-left"></a>
+    <a href="javascript:;" class="arrow arrow-right"></a>
+</section>
+
+<script src="js/animate.js"></script>
+<!--<script src="js/banner.js"></script>-->
+<script src="js/banner-plugin.js"></script>
+<script>
+    new Banner({
+        ele: '#container', //=> 操作哪个容器
+        url: 'json/banner.json', //=> 获取数据的API地址
+    });
+    new Banner({
+        ele: '#container2', //=> 操作哪个容器
+        url: 'json/banner2.json', //=> 获取数据的API地址
+    });
+</script>
+</body>
+</html>
