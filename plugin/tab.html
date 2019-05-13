@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab</title>
+    <link rel="stylesheet" href="css/reset.min.css">
+    <style>
+        .tabBox {
+            width: 100%;
+        }
+        .tabBox .option {
+            width: auto;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+        }
+        .tabBox .option>li {
+            float: left;
+            padding: 0 16px;
+            color: #444;
+            height: 40px;
+            line-height: 40px;
+        }
+        .tabBox>.option>li.active{
+            border-top: 4px solid #ff9468;
+            border-bottom: 3px solid #fff;
+            background: #fff;
+            line-height: 36px;
+        }
+        .tabBox>.con {
+            width: auto;
+            height: 300px;
+            padding: 20px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="tabBox" id="tabBox">
+    <ul class="option">
+        <li  class="active"><a href="#">图片</a></li>
+        <li><a href="#">专栏</a></li>
+        <li><a href="#">热点</a></li>
+    </ul>
+    <div class="con">1</div>
+    <div class="con">2</div>
+    <div class="con">3</div>
+</div>
+
+<div class="tabBox" id="tabBox2">
+    <ul class="option">
+        <li  class="active"><a href="#">图片</a></li>
+        <li><a href="#">专栏</a></li>
+        <li><a href="#">热点</a></li>
+        <li><a href="#">热点</a></li>
+    </ul>
+    <div class="con">1</div>
+    <div class="con">2</div>
+    <div class="con">3</div>
+    <div class="con">4</div>
+</div>
+
+<script src="js/tab-plugin.js"></script>
+<script>
+    let tab1 = new TabPlugin(tabBox,{
+        lastIndex: 2,
+        eventType: 'click',
+        changeEnd(index, lastIndex) {
+            console.log(index, lastIndex);
+        }
+    });
+    let tab2 = new TabPlugin(tabBox2);
+</script>
+</body>
+</html>
