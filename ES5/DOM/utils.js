@@ -28,8 +28,9 @@ let utils = (function () {
     //=>批量设置元素样式
     let setGroupCss = function (curEle, options = {}) {
         for (let attr in options) {
-            if (!options.hasOwnProperty(attr)) break;
-            setCss(curEle, attr, options[attr]);
+            if (options.hasOwnProperty(attr)){
+                setCss(curEle, attr, options[attr]);
+            }
         }
     };
 
