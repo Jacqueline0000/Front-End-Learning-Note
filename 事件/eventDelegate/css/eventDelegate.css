@@ -1,0 +1,32 @@
+.shop {
+    width: 200px;
+    margin: 20px auto;
+}
+
+.shop .shop-link {
+    display: block;
+    position: relative;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #ff9468;
+    color: white;
+    text-decoration: none;
+}
+
+.shop .shop-link .shop-list {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 300px;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    background: lightpink;
+}
+
+.shop .shop-link:hover .shop-list {
+    display: block;
+}

@@ -1,0 +1,42 @@
+.menu-box {
+    display: inline-block;
+    height: 100%;
+    box-sizing: content-box;
+    border: 1px solid #ddd;
+}
+
+.menu-box .nav-box {
+    float: left;
+    display: inline-block;
+    width: 200px;
+    background: #f8f8f8;
+}
+
+.menu-box .detail-box {
+    float: left;
+    display: none;
+    width: 500px;
+    padding: 0 10px;
+}
+.menu-box:hover .detail-box {
+    display: inline-block;
+}
+.menu-box .nav-box ul li {
+    width: 180px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+}
+
+.menu-box .nav-box ul li.active {
+    background: #ff9468;
+    color: white;
+}
+
+.menu-box .nav-box li.active a {
+    color: white;
+}
+.menu-box .nav-box li a {
+    color: #444444;
+}
+
