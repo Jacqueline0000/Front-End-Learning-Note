@@ -49,12 +49,6 @@
                     }, interval);
                 }
                 this.handleContainer();
-                if (isFocus) {
-                    this.handleFocus();
-                }
-                if (isArrow) {
-                    this.handleArrow();
-                }
             })
         }
 
@@ -127,7 +121,7 @@
 
         //=> handleContainer：鼠标进入和离开控制自动轮播的停止和开启
         handleContainer() {
-            let {container, arrowLeft, arrowRight, interval} = this;
+            let {container, arrowLeft, arrowRight, interval, slideList, wrapper, isFocus, isArrow} = this;
             container.onmouseenter = () => {
                 clearInterval(this.autoTimer);
                 arrowLeft.style.display = arrowRight.style.display = 'block';
@@ -139,38 +133,52 @@
                 arrowLeft.style.display = arrowRight.style.display = 'none';
             };
 
-        };
-
-        //=>handleFocus：点击焦点实现切换
-        handleFocus() {
-            let {focusList, wrapper} = this;
-            [].forEach.call(focusList, (item, index) => {
-                item.onclick = () => {
-                    this.stepIndex = index;
-                    animate(wrapper, {left: -this.stepIndex * 600}, 300);
-                    this.changeFocus();
-                };
-            })
-        };
-
-        //=>handleArrow：给两个按钮绑定点击事件
-        handleArrow() {
-            let {arrowRight, arrowLeft, slideList, wrapper} = this;
-            arrowRight.onclick = () => {
-                this.autoMove();
-            };
-            arrowLeft.onclick = () => {
-                this.stepIndex--;
-                if (this.stepIndex < 0) {
-                    utils.css(wrapper, 'left', -(slideList.length - 1) * 600);
-                    this.stepIndex = slideList.length - 2;
+            //=>基于事件委托实现左右切换和焦点切换
+            let queryIndex = function queryIndex(ele) {
+                //=>先获取它的所有哥哥，有几个哥哥它的索引就是几
+                let ary = [],
+                    pre = ele.previousElementSibling;
+                while (pre) {
+                    ary.unshift(pre);
+                    pre = pre.previousElementSibling
                 }
-                animate(wrapper, {left: -this.stepIndex * 600}, 300);
-                this.changeFocus();
+                return ary.length;
+            };
+
+            container.onclick = (ev) => {
+                let target = ev.target,
+                    tag = target.tagName,
+                    par = target.parentNode;
+
+                if (isFocus) {
+                    //=> 焦点
+                    if (tag === 'LI' && par.className.indexOf('focus') > -1) {
+                        this.stepIndex = queryIndex(target);
+                        animate(wrapper, {left: -this.stepIndex * 600}, 300);
+                        this.changeFocus();
+                        return;
+                    }
+                }
+                if (isArrow) {
+                    //=> 左按钮
+                    if (tag === 'A' && target.className.indexOf('arrow') > -1) {
+                        if (target.className.indexOf('arrow-right') > -1) {
+                            this.stepIndex--;
+                            if (this.stepIndex < 0) {
+                                utils.css(wrapper, 'left', -(slideList.length - 1) * 600);
+                                this.stepIndex = slideList.length - 2;
+                            }
+                            animate(wrapper, {left: -this.stepIndex * 600}, 300);
+                            this.changeFocus();
+                            return;
+                        }
+                        //=> 右按钮
+                        this.autoMove();
+                    }
+
+                }
             }
         };
-        //=>
-        //=>
 
     }
 
